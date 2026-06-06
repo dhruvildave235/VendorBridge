@@ -21,7 +21,11 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-brand">VendorBridge</div>
+      {/* <div className="sidebar-brand">VendorBridge</div> */}
+      <div className="sidebar-brand">
+  <img src="/logo.png" style={{ width:24, height:24, marginRight:8 }} />
+  VendorBridge
+</div>
       <nav className="sidebar-nav">
         {NAV.map(({ path, label }) => (
           <div
