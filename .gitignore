@@ -1,1 +1,4 @@
 /env
+/backend/app/models 
+/backend/app/routers
+/backend/app/schemas  
