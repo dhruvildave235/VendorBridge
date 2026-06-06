@@ -86,9 +86,14 @@ VendorBridge/
 └── README.md
 ```
 
-## Team
+## Team Details
 
-Developed for the Odoo Hackathon.
+| Name | GitHub |
+|------|--------|
+| Bhinsra Om | [@om-bhinsara](https://github.com/om-bhinsara) |
+| DHRUVIL DAVE | [@dhruvildave235](https://github.com/dhruvildave235) |
+| Hetvi | [@hetvi1422](https://github.com/hetvi1422) |
+| Srushti | [@SRUSHTI0401](https://github.com/SRUSHTI0401) |
 
 ## License
 
