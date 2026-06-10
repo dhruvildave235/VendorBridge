@@ -1,22 +1,85 @@
-# VendorBridge — Procurement & Vendor Management ERP
+<div align="center">
 
-A full-stack ERP application built with **React + FastAPI + PostgreSQL**.
+# 🏢 VendorBridge
+**Procurement & Vendor Management ERP**
+
+*A full-stack ERP application built with React + FastAPI + PostgreSQL.*
+
+![React](https://img.shields.io/badge/React_18-20232a?style=for-the-badge&logo=react&logoColor=61DAFB)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/Python_3.10+-14354C?style=for-the-badge&logo=python&logoColor=white)
+![NodeJS](https://img.shields.io/badge/Node.js_18+-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+
+</div>
+
+<br/>
+
+## 📑 Table of Contents
+- [💻 Tech Stack](#-tech-stack)
+- [🏗️ System Architecture](#️-system-architecture)
+- [📱 Screens Implemented](#-screens-implemented)
+- [🛠️ Prerequisites](#️-prerequisites)
+- [🚀 Setup Instructions](#-setup-instructions)
+  - [Step 1 — PostgreSQL Database](#step-1--postgresql-database)
+  - [Step 2 — Backend (FastAPI)](#step-2--backend-fastapi)
+  - [Step 3 — Frontend (React)](#step-3--frontend-react)
+- [⚡ Quick Start](#-quick-start-both-servers-at-once)
+- [🔑 First Login](#-first-login)
+- [👥 User Roles](#-user-roles)
+- [🔄 Full Procurement Workflow](#-full-procurement-workflow)
+- [🔐 Environment Variables](#-environment-variables-backendenv)
+- [📂 Project Structure](#-project-structure)
+- [🔧 Troubleshooting](#-troubleshooting)
+- [📖 API Documentation](#-api-documentation)
+- [🤝 Team Details](#-team-details)
 
 ---
 
-## Tech Stack
+## 💻 Tech Stack
 
-| Layer     | Technology                        |
-|-----------|-----------------------------------|
-| Frontend  | React 18, Vite, React Router, Recharts, Axios |
-| Backend   | FastAPI, SQLAlchemy ORM, Pydantic v2 |
-| Database  | PostgreSQL                        |
-| Auth      | JWT (python-jose) + bcrypt        |
-| PDF       | ReportLab                         |
+| Layer | Technology |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, React Router, Recharts, Axios |
+| **Backend** | FastAPI, SQLAlchemy ORM, Pydantic v2 |
+| **Database** | PostgreSQL |
+| **Auth** | JWT (python-jose) + bcrypt |
+| **PDF** | ReportLab |
 
 ---
 
-## Screens Implemented
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    subgraph Client [Frontend Layer]
+        UI[React 18 UI / Dashboards]
+        Axios[Axios HTTP Client]
+        UI --> Axios
+    end
+
+    subgraph Server [Backend Layer - FastAPI]
+        Router[API Routers & Endpoints]
+        Auth[JWT Authentication]
+        PDF[ReportLab PDF Generator]
+        ORM[SQLAlchemy ORM]
+        
+        Router --> Auth
+        Router --> PDF
+        Router --> ORM
+    end
+
+    subgraph Data [Database Layer]
+        DB[(PostgreSQL 14+)]
+    end
+
+    Axios -- REST API Calls --> Router
+    ORM -- Read/Write --> DB
+```
+
+
+
+## 📱 Screens Implemented
 
 1. **Login / Register** — JWT auth, role-based access
 2. **Dashboard** — KPI cards, recent POs, quick actions
@@ -31,7 +94,7 @@ A full-stack ERP application built with **React + FastAPI + PostgreSQL**.
 
 ---
 
-## Prerequisites
+## 🛠️ Prerequisites
 
 - **Python 3.10+**
 - **Node.js 18+**
@@ -39,7 +102,7 @@ A full-stack ERP application built with **React + FastAPI + PostgreSQL**.
 
 ---
 
-## Setup Instructions
+## 🚀 Setup Instructions
 
 ### Step 1 — PostgreSQL Database
 
@@ -58,8 +121,6 @@ GRANT ALL PRIVILEGES ON DATABASE vendorbridge_db TO vendorbridge;
 \c vendorbridge_db
 GRANT ALL ON SCHEMA public TO vendorbridge;
 ```
-
----
 
 ### Step 2 — Backend (FastAPI)
 
@@ -85,12 +146,7 @@ cp .env .env  # already present
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The backend starts at **http://localhost:8000**  
-Swagger UI: **http://localhost:8000/docs**
-
-> Tables are auto-created on first startup via SQLAlchemy.
-
----
+> **Note:** The backend starts at **http://localhost:8000** <br/> Swagger UI: **http://localhost:8000/docs** <br/> *Tables are auto-created on first startup via SQLAlchemy.*
 
 ### Step 3 — Frontend (React)
 
@@ -106,11 +162,11 @@ npm install
 npm run dev
 ```
 
-Frontend runs at **http://localhost:5173**
+> **Note:** Frontend runs at **http://localhost:5173**
 
 ---
 
-## Quick Start (both servers at once)
+## ⚡ Quick Start (Both Servers at Once)
 
 ### Linux/Mac
 
@@ -137,19 +193,19 @@ npm run dev
 
 ---
 
-## First Login
+## 🔑 First Login
 
-1. Go to http://localhost:5173
+1. Go to `http://localhost:5173`
 2. Click **Register** and create an account
 3. Choose role: `procurement_officer`, `manager`, `vendor`, or `admin`
 4. Login and explore the dashboard
 
 ---
 
-## User Roles
+## 👥 User Roles
 
 | Role | Capabilities |
-|------|-------------|
+| :--- | :--- |
 | `procurement_officer` | Create RFQs, compare quotes, generate POs/invoices |
 | `vendor` | Submit quotations, track RFQ status |
 | `manager` | Approve/reject procurement requests |
@@ -157,9 +213,9 @@ npm run dev
 
 ---
 
-## Full Procurement Workflow
+## 🔄 Full Procurement Workflow
 
-```
+```text
 1. Register vendors → Vendors page
 2. Create RFQ → RFQ's page (assign vendors)
 3. Publish RFQ → sends to vendors
@@ -174,18 +230,18 @@ npm run dev
 
 ---
 
-## Environment Variables (backend/.env)
+## 🔐 Environment Variables (`backend/.env`)
 
-```
+```env
 DATABASE_URL=postgresql://vendorbridge:vendorbridge123@localhost:5432/vendorbridge_db
 SECRET_KEY=vendorbridge-super-secret-key-2024-change-in-production
 ```
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
-```
+```text
 vendorbridge/
 ├── backend/
 │   ├── app/
@@ -239,34 +295,29 @@ vendorbridge/
 
 ---
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
-**"Module not found" on backend startup**
-→ Make sure venv is activated and `pip install -r requirements.txt` completed
-
-**PostgreSQL connection refused**
-→ Check PostgreSQL is running: `sudo systemctl start postgresql`
-→ Verify credentials match `.env`
-
-**CORS errors in browser**
-→ Make sure backend is running on port 8000
-→ Frontend must be on port 5173 (default Vite)
-
-**PDF download fails**
-→ ReportLab must be installed: `pip install reportlab`
+* **"Module not found" on backend startup** → Make sure venv is activated and `pip install -r requirements.txt` completed.
+* **PostgreSQL connection refused** → Check PostgreSQL is running: `sudo systemctl start postgresql`  
+  → Verify credentials match `.env`.
+* **CORS errors in browser** → Make sure backend is running on port 8000.  
+  → Frontend must be on port 5173 (default Vite).
+* **PDF download fails** → ReportLab must be installed: `pip install reportlab`.
 
 ---
 
-## API Documentation
+## 📖 API Documentation
 
-Full Swagger docs available at: **http://localhost:8000/docs**  
-ReDoc: **http://localhost:8000/redoc**
+* Full Swagger docs available at: **http://localhost:8000/docs**
+* ReDoc available at: **http://localhost:8000/redoc**
 
-## Team Details
+---
 
-| Name | GitHub |
-|------|--------|
-| Bhinsra Om | [@om-bhinsara](https://github.com/om-bhinsara) |
-| DHRUVIL DAVE | [@dhruvildave235](https://github.com/dhruvildave235) |
-| Hetvi | [@hetvi1422](https://github.com/hetvi1422) |
-| Srushti | [@SRUSHTI0401](https://github.com/SRUSHTI0401) |
+## 🤝 Team Details
+
+| Name | GitHub Profile |
+| :--- | :--- |
+| **Bhinsra Om** | [@om-bhinsara](https://github.com/om-bhinsara) |
+| **DHRUVIL DAVE** | [@dhruvildave235](https://github.com/dhruvildave235) |
+| **Hetvi** | [@hetvi1422](https://github.com/hetvi1422) |
+| **Srushti** | [@SRUSHTI0401](https://github.com/SRUSHTI0401) |
